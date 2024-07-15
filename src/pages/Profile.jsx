@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -25,6 +26,14 @@ const Profile = () => {
     gpsTracking: false,
   });
 
+  const [preferences, setPreferences] = useState({
+    notifyNewRides: false,
+    notifyNewMessages: false,
+    notifyPromotions: false,
+    preferQuietRides: false,
+    preferAirConditioned: false,
+  });
+
   const [date, setDate] = useState();
 
   const handleInputChange = (e) => {
@@ -42,9 +51,17 @@ const Profile = () => {
     }));
   };
 
+  const handlePreferenceChange = (name) => (checked) => {
+    setPreferences((prevPreferences) => ({
+      ...prevPreferences,
+      [name]: checked,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Profile data submitted:", profileData);
+    console.log("Preferences submitted:", preferences);
     // Here you would typically send the data to your backend
   };
 
@@ -193,7 +210,63 @@ const Profile = () => {
           </div>
         </div>
 
-        <Button type="submit" className="w-full">Save Profile</Button>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">Preferences</h2>
+          
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">Push Notifications</h3>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="notifyNewRides"
+                  checked={preferences.notifyNewRides}
+                  onCheckedChange={handlePreferenceChange("notifyNewRides")}
+                />
+                <Label htmlFor="notifyNewRides">Notify me about new rides</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="notifyNewMessages"
+                  checked={preferences.notifyNewMessages}
+                  onCheckedChange={handlePreferenceChange("notifyNewMessages")}
+                />
+                <Label htmlFor="notifyNewMessages">Notify me about new messages</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="notifyPromotions"
+                  checked={preferences.notifyPromotions}
+                  onCheckedChange={handlePreferenceChange("notifyPromotions")}
+                />
+                <Label htmlFor="notifyPromotions">Notify me about promotions</Label>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">Trip Preferences</h3>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="preferQuietRides"
+                  checked={preferences.preferQuietRides}
+                  onCheckedChange={handlePreferenceChange("preferQuietRides")}
+                />
+                <Label htmlFor="preferQuietRides">I prefer quiet rides</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="preferAirConditioned"
+                  checked={preferences.preferAirConditioned}
+                  onCheckedChange={handlePreferenceChange("preferAirConditioned")}
+                />
+                <Label htmlFor="preferAirConditioned">I prefer air-conditioned rides</Label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Button type="submit" className="w-full">Save Profile and Preferences</Button>
       </form>
     </div>
   );
