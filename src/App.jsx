@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile.jsx";
 import SearchRides from "./pages/SearchRides.jsx";
 import PostRide from "./pages/PostRide.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => {
               <Route path="profile" element={<Profile />} />
               <Route path="search-rides" element={<SearchRides />} />
               <Route path="post-ride" element={<PostRide />} />
+              <Route path="contact-us" element={<ContactUs />} />
             </Route>
           </Routes>
         </Router>

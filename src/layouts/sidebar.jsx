@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Package2, Home, LogIn, User, Search, Plus } from "lucide-react";
+import { CircleUser, Menu, Package2, Home, LogIn, User, Search, Plus, Phone } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const navItems = [
@@ -18,6 +18,7 @@ const navItems = [
   { to: "/profile", icon: <User className="h-4 w-4" />, title: "Profile" },
   { to: "/search-rides", icon: <Search className="h-4 w-4" />, title: "Search Rides" },
   { to: "/post-ride", icon: <Plus className="h-4 w-4" />, title: "Post Ride" },
+  { to: "/contact-us", icon: <Phone className="h-4 w-4" />, title: "Contact Us" },
 ];
 
 const Layout = () => {
