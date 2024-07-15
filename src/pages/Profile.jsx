@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import PaymentMethods from "@/components/PaymentMethods";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -178,12 +179,11 @@ const Profile = () => {
           <Label htmlFor="gpsTracking">GPS Live Tracking Permission</Label>
         </div>
 
+        <PaymentMethods />
+
         <div className="space-y-2">
           <Label>Verification ID</Label>
           <div className="space-y-2">
-            <Button variant="outline" className="w-full justify-start">
-              Upload Payment Method
-            </Button>
             <Button variant="outline" className="w-full justify-start">
               Upload Driver License
             </Button>
