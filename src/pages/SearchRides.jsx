@@ -4,9 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, MessageCircle, PhoneCall } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import RideConfirmationModal from "@/components/RideConfirmationModal";
+import { toast } from "sonner";
 
 const SearchRides = () => {
   const [currentLocation, setCurrentLocation] = useState("");
@@ -14,6 +16,8 @@ const SearchRides = () => {
   const [date, setDate] = useState();
   const [persons, setPersons] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedRide, setSelectedRide] = useState(null);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const handleSearch = () => {
     // Mock search function
@@ -22,6 +26,34 @@ const SearchRides = () => {
       { id: 2, from: currentLocation, to: destination, date: date ? format(date, "PPP") : "", seats: 2, price: 30 },
     ];
     setSearchResults(mockResults);
+  };
+
+  const handleRideSelect = (ride) => {
+    setSelectedRide(ride);
+    setIsConfirmationModalOpen(true);
+  };
+
+  const handleRideAccept = (message) => {
+    // Here you would typically send the acceptance to your backend
+    console.log("Ride accepted:", selectedRide, "Message:", message);
+    toast.success("Ride confirmed! You can now chat and call the rider.");
+  };
+
+  const handleRideReject = (message) => {
+    // Here you would typically send the rejection to your backend
+    console.log("Ride rejected:", selectedRide, "Message:", message);
+  };
+
+  const handleChat = (ride) => {
+    // Implement chat functionality
+    console.log("Opening chat for ride:", ride);
+    toast.info("Chat functionality not implemented yet.");
+  };
+
+  const handleCall = (ride) => {
+    // Implement call functionality
+    console.log("Calling rider for ride:", ride);
+    toast.info("Call functionality not implemented yet.");
   };
 
   return (
@@ -95,11 +127,30 @@ const SearchRides = () => {
                 <p><strong>Date:</strong> {ride.date}</p>
                 <p><strong>Available Seats:</strong> {ride.seats}</p>
                 <p><strong>Price per Seat:</strong> ${ride.price}</p>
+                <div className="mt-4 flex justify-between items-center">
+                  <Button onClick={() => handleRideSelect(ride)}>Select Ride</Button>
+                  <div className="space-x-2">
+                    <Button variant="outline" size="icon" onClick={() => handleChat(ride)}>
+                      <MessageCircle className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" onClick={() => handleCall(ride)}>
+                      <PhoneCall className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
+
+      <RideConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onClose={() => setIsConfirmationModalOpen(false)}
+        ride={selectedRide}
+        onAccept={handleRideAccept}
+        onReject={handleRideReject}
+      />
     </div>
   );
 };
