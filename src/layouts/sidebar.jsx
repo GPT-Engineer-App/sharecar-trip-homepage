@@ -9,9 +9,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Package2 } from "lucide-react";
+import { CircleUser, Menu, Package2, Home, LogIn, User } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
-import { navItems } from "../App";
+
+const navItems = [
+  { to: "/", icon: <Home className="h-4 w-4" />, title: "Home" },
+  { to: "/login", icon: <LogIn className="h-4 w-4" />, title: "Login" },
+  { to: "/profile", icon: <User className="h-4 w-4" />, title: "Profile" },
+];
 
 const Layout = () => {
   return (
@@ -20,7 +25,9 @@ const Layout = () => {
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <MobileSidebar />
-          <div className="w-full flex-1">{/* Add nav bar content here! */}</div>
+          <div className="w-full flex-1">
+            <UserDropdown />
+          </div>
         </header>
         <main className="flex-grow p-4 overflow-auto">
           <Outlet />
@@ -36,7 +43,7 @@ const Sidebar = () => (
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <NavLink to="/" className="flex items-center gap-2 font-semibold">
           <Package2 className="h-6 w-6" />
-          <span>Acme Inc</span>
+          <span>SharECar TriP</span>
         </NavLink>
       </div>
       <div className="flex-1">
@@ -68,10 +75,11 @@ const MobileSidebar = () => (
           className="flex items-center gap-2 text-lg font-semibold mb-4"
         >
           <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+          <span>SharECar TriP</span>
         </NavLink>
         {navItems.map((item) => (
           <SidebarNavLink key={item.to} to={item.to}>
+            {item.icon}
             {item.title}
           </SidebarNavLink>
         ))}
@@ -83,7 +91,7 @@ const MobileSidebar = () => (
 const UserDropdown = () => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="secondary" size="icon" className="rounded-full">
+      <Button variant="secondary" size="icon" className="rounded-full ml-auto">
         <CircleUser className="h-5 w-5" />
         <span className="sr-only">Toggle user menu</span>
       </Button>
@@ -105,7 +113,7 @@ const SidebarNavLink = ({ to, children }) => (
     className={({ isActive }) =>
       cn(
         "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary text-muted-foreground",
-        isActive && "text-primary bg-muted",
+        isActive && "text-primary bg-muted"
       )
     }
   >
