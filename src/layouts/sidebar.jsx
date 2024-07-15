@@ -9,13 +9,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Package2, Home, LogIn, User } from "lucide-react";
+import { CircleUser, Menu, Package2, Home, LogIn, User, Search, Plus } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const navItems = [
   { to: "/", icon: <Home className="h-4 w-4" />, title: "Home" },
   { to: "/login", icon: <LogIn className="h-4 w-4" />, title: "Login" },
   { to: "/profile", icon: <User className="h-4 w-4" />, title: "Profile" },
+  { to: "/search-rides", icon: <Search className="h-4 w-4" />, title: "Search Rides" },
+  { to: "/post-ride", icon: <Plus className="h-4 w-4" />, title: "Post Ride" },
 ];
 
 const Layout = () => {
