@@ -2,10 +2,12 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Layout from "./layouts/sidebar"; // Changed to use the sidebar layout
+import Layout from "./layouts/sidebar";
 import Index from "./pages/Index.jsx";
 import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile.jsx";
+import SearchRides from "./pages/SearchRides.jsx";
+import PostRide from "./pages/PostRide.jsx";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +22,8 @@ const App = () => {
               <Route index element={<Index />} />
               <Route path="login" element={<Login />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="search-rides" element={<SearchRides />} />
+              <Route path="post-ride" element={<PostRide />} />
             </Route>
           </Routes>
         </Router>
