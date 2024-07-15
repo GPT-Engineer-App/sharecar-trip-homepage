@@ -7,12 +7,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import CancellationModal from "@/components/CancellationModal";
 
 const Index = () => {
   const [currentLocation, setCurrentLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState();
   const [persons, setPersons] = useState("");
+  const [isCancellationModalOpen, setIsCancellationModalOpen] = useState(false);
 
   const handleSearch = () => {
     console.log({
@@ -21,6 +23,15 @@ const Index = () => {
       date: date ? format(date, "PPP") : "",
       persons,
     });
+  };
+
+  const handleCancelRide = () => {
+    setIsCancellationModalOpen(true);
+  };
+
+  const handleCancellationSubmit = (reason) => {
+    console.log("Ride cancelled. Reason:", reason);
+    // Here you would typically send the cancellation reason to your backend
   };
 
   return (
@@ -83,7 +94,16 @@ const Index = () => {
         <Button className="w-full" onClick={handleSearch}>
           Search
         </Button>
+        <Button className="w-full" variant="destructive" onClick={handleCancelRide}>
+          Cancel Ride
+        </Button>
       </div>
+
+      <CancellationModal
+        isOpen={isCancellationModalOpen}
+        onClose={() => setIsCancellationModalOpen(false)}
+        onSubmit={handleCancellationSubmit}
+      />
     </div>
   );
 };
